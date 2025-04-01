@@ -1,0 +1,7 @@
+FROM docker.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+
+RUN apt-get update -y
+RUN apt-get install -y python3 python3-pip
+RUN pip install torch torchvision torchaudio
+RUN pip install fastai 
+RUN pip install "duckduckgo_search>=6.2" matplotlib PyQt6

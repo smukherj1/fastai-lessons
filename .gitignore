@@ -1,0 +1,4 @@
+.venv
+lesson1/data
+lesson1/*.jpg
+lesson1/*.jpeg
