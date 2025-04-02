@@ -34,11 +34,13 @@ if __name__ == "__main__":
     splitter=fv.RandomSplitter(valid_pct=0.2, seed=42),
     get_y=fv.parent_label,
     item_tfms=[fv.Resize(192, method='squish')]
-  ).dataloaders(fc.Path('data'), bs=32)
+  ).dataloaders(fc.Path('data/train'), bs=32)
 
   learn = fv.vision_learner(dls, fv.resnet18, metrics=fv.error_rate)
-  learn.fine_tune(3)
-  a, b, c = learn.predict(fv.PILImage.create('cake.jpeg'))
-  print("Predict cake", a, b, c)
-  a, b, c = learn.predict(fv.PILImage.create('score_pizza.jpg'))
-  print("Predict score_pizza", a, b, c)
+  learn.fine_tune(5)
+  test_files = ["burger.jpg", "cake.jpg", "cat.jpg", "cupcake.jpg", "dominos.jpg", "pizza.jpg"]
+  for f in test_files:
+    p = fc.Path(f'data/test/{f}')
+    label, _, probs = learn.predict(fv.PILImage.create(p.as_posix()))
+    cake_prob, pizza_prob = probs[0], probs[1]
+    print(f"Prediction for '{f}' -> '{label}', cake probability {cake_prob:.2f}, pizza probability {pizza_prob:.2f}")
