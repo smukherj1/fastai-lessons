@@ -1,2 +1,6 @@
 .venv
 lesson1/data
+data
+
+# Python cache
+**/__pycache__
